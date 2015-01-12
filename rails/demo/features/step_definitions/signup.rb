@@ -1,15 +1,15 @@
-Given(/^I am on the ([a-zA-Z_]+) page$/) do |page|
+Given(/^I visit the ([a-zA-Z_]+) page$/) do |page|
   # pending # express the regexp above with the code you wish you had
   visit "/" + page
 end
 
-When(/^I fill in with "(.*?)" "(.*?)" "(.*?)" "(.*?)" "(.*?)"$/) do |firstname, lastname, email, password, password_confirmation|
+When(/^I fill in:$/) do |table|
+  # table is a Cucumber::Ast::Table
   # pending # express the regexp above with the code you wish you had
-  fill_in('First Name', :with => firstname)
-  fill_in('Last Name', :with => lastname)
-  fill_in('Email', :with => email)
-  fill_in('Password', :with => password)
-  fill_in('Password Confirmation', :with => password_confirmation)
+  table = table.raw
+  table.each do |row|
+  	fill_in(row[0], :with => row[1])
+  end
 end
 
 When(/^I press "(.*?)" button$/) do |button|
