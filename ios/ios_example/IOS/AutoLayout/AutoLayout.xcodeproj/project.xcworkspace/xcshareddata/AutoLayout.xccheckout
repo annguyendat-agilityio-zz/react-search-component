@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>490B71CC-520D-4C93-A16B-05C55A9BA048</string>
+	<key>IDESourceControlProjectName</key>
+	<string>AutoLayout</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>0606AF34E50C6482B55F9993FD49D44754A51BAC</key>
+		<string>asoft.git:training/haunguyen-training.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>ios_example/IOS/AutoLayout/AutoLayout.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>0606AF34E50C6482B55F9993FD49D44754A51BAC</key>
+		<string>../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>asoft.git:training/haunguyen-training.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>0606AF34E50C6482B55F9993FD49D44754A51BAC</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>0606AF34E50C6482B55F9993FD49D44754A51BAC</string>
+			<key>IDESourceControlWCCName</key>
+			<string>haunguyen-training</string>
+		</dict>
+	</array>
+</dict>
+</plist>
