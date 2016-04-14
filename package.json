@@ -1,6 +1,6 @@
 {
   "name": "react-search-component",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "lib/search.js",
   "scripts": {
@@ -8,6 +8,10 @@
     "build": "webpack --config webpack.build.config.js",
     "test": "mocha --compilers js:babel-register --recursive",
     "test:watch": "npm test -- --watch"
+  },
+  "repository" : { 
+    "type" : "git",
+    "url" : "https://github.com/annguyen-asnet/react-redux-skeleton.git"
   },
   "keywords": [
     "react",
