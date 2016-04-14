@@ -1,0 +1,11 @@
+# Emacs
+*~
+
+*.log
+*.db
+
+devops
+
+build
+
+node_modules

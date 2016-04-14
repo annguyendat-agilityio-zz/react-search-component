@@ -6,6 +6,7 @@ react-search-component is to provide a simple search
 ```
 	npm install --save-dev react-search-component
 ```
+
 ## Usage
 ```jsx
 	import Search from "react-search-component"
@@ -58,3 +59,8 @@ react-search-component is to provide a simple search
 	}
 
 ```
+
+# The props:
+* data is a array
+* keySearch is a string
+* getValueSearch is a function
