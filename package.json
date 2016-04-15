@@ -1,6 +1,6 @@
 {
   "name": "react-search-component",
-  "version": "1.0.3",
+  "version": "1.0.7",
   "description": "",
   "main": "lib/search.js",
   "scripts": {
@@ -9,9 +9,9 @@
     "test": "mocha --compilers js:babel-register --recursive",
     "test:watch": "npm test -- --watch"
   },
-  "repository" : { 
-    "type" : "git",
-    "url" : "https://github.com/annguyen-asnet/react-search-component.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/annguyen-asnet/react-search-component.git"
   },
   "keywords": [
     "react",
@@ -38,6 +38,7 @@
     "jshint-loader": "^0.8.3",
     "lodash": "^4.11.0",
     "mocha": "^2.4.5",
+    "mocha-jsdom": "^1.1.0",
     "node-sass": "^3.4.2",
     "react": "^15.0.1",
     "react-addons-test-utils": "^15.0.1",

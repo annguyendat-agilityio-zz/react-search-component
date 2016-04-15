@@ -2,11 +2,17 @@ import './search.scss'
 import React from 'react'
 
 class Search extends React.Component {
+
+	static get propTypes () {
+		return {
+			data: React.PropTypes.array.isRequired,
+			keySearch: React.PropTypes.string.isRequired,
+			getValueSearch:  React.PropTypes.func.isRequired
+		}
+	}
 	constructor(props) {
 		super(props);
 		this.state = {
-			data: this.props.data ? this.props.data : [],
-			keySearch: this.props.keySearch ? this.props.keySearch : null,
 			dataSearch: [],
 			inputSearch: '',
 			indexSelect: 0,
@@ -23,16 +29,17 @@ class Search extends React.Component {
 	// Handle when user change input search
 	_onChangeSearch(evt) {
 
-		const state = this.state;
+		const state = this.state,
+					props = this.props;
 
 		let inputSearch = evt.target.value,
-				keySearch = state.keySearch,
-				dataSearch = [];
+		keySearch = props.keySearch,
+		dataSearch = [];
 
   	// Check data and input not null
-		if(state.data.length > 0 && inputSearch !== '' && keySearch !== null) {
+  	if(inputSearch !== '' && keySearch !== undefined) {
 
-			state.data.map((item, index) => {
+  		props.data.map((item, index) => {
 
 				// Create regular expression for input search
 				let inputSearchRegExp = new RegExp(inputSearch, 'gi');
@@ -42,7 +49,7 @@ class Search extends React.Component {
 					return inputSearchRegExp.test(item[keySearch]) && index < 5 ?  dataSearch.push(item[keySearch]) : '';
 				}
 			}) 
-		}
+  	}
 
 		// set state for input search, data search, loading
 		this.setState({
@@ -131,22 +138,22 @@ class Search extends React.Component {
 		this.props.getValueSearch(value);
 	}
 
-  render () {
+	render () {
 
-  	const state = this.state;
+		const state = this.state;
 
-  	const renderDataSearch = () => {
+		const renderDataSearch = () => {
 
   		// render loading when the user is changing input search
   		if(state.isLoading) {
   			return (<ul>
   				<li className='loading-search'>
-						<div className='loading-border loading-right'></div>
-						<div className='loading-border loading-left'></div>
-						<div className='loading-border loading-mid'></div>
-					</li>
-				</ul>
-  			)
+  				<div className='loading-border loading-right'></div>
+  				<div className='loading-border loading-left'></div>
+  				<div className='loading-border loading-mid'></div>
+  				</li>
+  				</ul>
+  				)
   			// render the value search when input search not null
   		} else if(!state.isLoading && state.dataSearch.length > 0 && state.inputSearch !== null) {
 
@@ -156,16 +163,16 @@ class Search extends React.Component {
   					state.dataSearch.map((item, index) => {
 
   						// Create regular expression for input search
-							let inputSearchRegExp = new RegExp(state.inputSearch, 'gi');
+  						let inputSearchRegExp = new RegExp(state.inputSearch, 'gi');
 
 							// Bold value search
 							let itemTestBold = item.replace(inputSearchRegExp,"<strong>$&</strong>");
 
-  						return <li onClick={this._onClickSelect.bind(this, index)} onMouseOver={this._onMouseOverSelect.bind(this, index)} className={state.indexSelect === index ? 'search-item search-item-active' : 'search-item'} key={index} dangerouslySetInnerHTML={{__html: itemTestBold}}></li>
-  					})
+							return <li onClick={this._onClickSelect.bind(this, index)} onMouseOver={this._onMouseOverSelect.bind(this, index)} className={state.indexSelect === index ? 'search-item search-item-active' : 'search-item'} key={index} dangerouslySetInnerHTML={{__html: itemTestBold}}></li>
+						})
   				}
   				</ul>
-  			)
+  				)
   		}
   	}
 
@@ -175,27 +182,27 @@ class Search extends React.Component {
   		}
   	}
 
-    return (
-      <div className='wrapper-search'>
-	      <div className={'wrapper-search-input'} >
-					<input onChange={this._onChangeSearch}
-						onKeyDown={this._onKeyDownSelect}
-						value={this.state.inputSearch}
-						className={'search-default'}
-						type='type'
-						placeholder='input search'/>
-					{ clearReander() }
-				</div>
-				{ renderDataSearch() }
-			</div>
-    )
+  	return (
+  		<div className='wrapper-search'>
+  		<div className={'wrapper-search-input'} >
+  		<input onChange={this._onChangeSearch}
+	  		onKeyDown={this._onKeyDownSelect}
+	  		value={this.state.inputSearch}
+	  		className={'search-default'}
+	  		type='type'
+	  		placeholder='input search'/>
+  		{ clearReander() }
+  		</div>
+  		{ renderDataSearch() }
+  		</div>
+  		)
   }
 }
 
-Search.propTypes = {
-	data: React.PropTypes.array.isRequired,
-	keySearch: React.PropTypes.string.isRequired,
-	getValueSearch:  React.PropTypes.func.isRequired,
-};
+// Search.propTypes = {
+// 	data: React.PropTypes.array.isRequired,
+// 	keySearch: React.PropTypes.string.isRequired,
+// 	getValueSearch:  React.PropTypes.func.isRequired,
+// };
 
 module.exports = Search;

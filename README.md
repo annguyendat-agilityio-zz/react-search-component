@@ -52,7 +52,7 @@ react-search-component is to provide a simple search
 
 	    return (
 	    	<div>
-		      <Search data={data} keySearch={keySearch} getValueSearch={this._handleSearch}/>
+		      <Search data={data} keySearch={'name'} getValueSearch={this._handleSearch}/>
 			</div>
 	    )
 	  }
@@ -60,7 +60,11 @@ react-search-component is to provide a simple search
 
 ```
 
-# The props:
+## Props:
+#### `data` (required)
+List of Items to filter through either an array of Object
 * data is a array
-* keySearch is a string
-* getValueSearch is a function
+#### `keySearch` (required)
+The search key to match when searhching
+#### `getValueSearch` (required)
+getValueSearch is a function return value search

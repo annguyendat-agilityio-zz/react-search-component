@@ -2,26 +2,26 @@ import Search from '../lib/search';
 import React from 'react'
 
 const data = [
-	{
-		id: 1,
-		name: "an"
-	},
-	{
-		id: 2,
-		name: "dant"
-	},
-	{
-		id: 3,
-		name: "dant_1"
-	},
-	{
-		id: 4,
-		name: "dant_2"
-	},
-	{
-		id: 5,
-		name: "dant_3 dant da"
-	}
+{
+	id: 1,
+	name: "an"
+},
+{
+	id: 2,
+	name: "dant"
+},
+{
+	id: 3,
+	name: "dant_1"
+},
+{
+	id: 4,
+	name: "dant_2"
+},
+{
+	id: 5,
+	name: "dant_3 dant da"
+}
 ]
 
 const keySearch = 'name';
@@ -39,12 +39,12 @@ export default class TestComponent extends React.Component {
 		console.log(value);
 	}
 
-  render () {
+	render () {
 
-    return (
-      <div>
-	      <Search data={data} keySearch={keySearch} getValueSearch={this._handleSearch}/>
+		return (
+			<div>
+				<Search data={data} keySearch={keySearch} getValueSearch={this._handleSearch}/>
 			</div>
-    )
-  }
+		)
+	}
 }
