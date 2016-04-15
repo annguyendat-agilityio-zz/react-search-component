@@ -9,9 +9,10 @@ react-search-component is to provide a simple search
 
 ## Usage
 ```jsx
-	import Search from "react-search-component"
-	import React from "react"
-	import ReactDOM from 'react-dom'
+	import Search from '../lib/search';
+	import React from 'react'
+	import axios from 'axios'
+	import MockAdapter from 'axios-mock-adapter'
 
 	const data = [
 		{
@@ -36,36 +37,50 @@ react-search-component is to provide a simple search
 		}
 	]
 
+	const keySearch = 'name';
+
 	export default class TestComponent extends React.Component {
 		constructor(props) {
 			super(props);
 
-			this._handleSearch = this._handleSearch.bind(this);
+			this._callBack = this._callBack.bind(this);
+
+		}
+
+		componentDidMount() {
+
+			var mock = new MockAdapter(axios);
+
+			mock.onGet('/users').reply(200, {
+				users: ['call_1', 'call_2', 'call_3', 'call_4', 'call_5']
+			});
+		}
+
+		_callBack() {
+			return axios.get('/users')
 		}
 
 		_handleSearch(value) {
-
 			console.log(value);
 		}
 
-	  render () {
+		render () {
 
-	    return (
-	    	<div>
-		      <Search data={data}
-		      	keySearch={'name'}
-		      	getValueSearch={this._handleSearch}/>
-			</div>
+			return (
+				<div>
+					// Search with data 				
+					<Search keySearch={'name'} 
+						data={data}
+						getValueSearch={this._handleSearch} />
 
-			<div>
-		      <Search data={data}
-		      	objectResponse={'name'}
-		      	getValueSearch={this._handleSearch}/>
-			</div>
-	    )
-	  }
+					// Search with call back end
+					<Search objectRespone={'users'}
+						callBackBackEnd={this._callBack}
+						getValueSearch={this._handleSearch} />
+				</div>
+			)
+		}
 	}
-
 ```
 
 ## Props:
