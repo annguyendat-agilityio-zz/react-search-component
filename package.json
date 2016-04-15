@@ -1,6 +1,6 @@
 {
   "name": "react-search-component",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "description": "",
   "main": "lib/search.js",
   "scripts": {
@@ -20,6 +20,8 @@
   "author": "an nguyen",
   "license": "ISC",
   "devDependencies": {
+    "axios": "^0.9.1",
+    "axios-mock-adapter": "^1.2.0",
     "babel": "^6.5.2",
     "babel-core": "^6.7.6",
     "babel-loader": "^6.2.4",

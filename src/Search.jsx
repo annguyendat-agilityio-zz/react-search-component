@@ -5,9 +5,11 @@ class Search extends React.Component {
 
 	static get propTypes () {
 		return {
-			data: React.PropTypes.array.isRequired,
-			keySearch: React.PropTypes.string.isRequired,
-			getValueSearch:  React.PropTypes.func.isRequired
+			data: React.PropTypes.array,
+			keySearch: React.PropTypes.string,
+			objectRespone: React.PropTypes.string,
+			callBackBackEnd: React.PropTypes.func,
+			getValueSearch:  React.PropTypes.func
 		}
 	}
 	constructor(props) {
@@ -24,40 +26,66 @@ class Search extends React.Component {
 		this._onClickSelect = this._onClickSelect.bind(this);
 		this._onClear = this._onClear.bind(this);
 		this._handleSearch = this._handleSearch.bind(this);
+		this._setStateSearch = this._setStateSearch.bind(this);
+	}
+
+	// set state for input search, data search, loading
+	_setStateSearch(response, inputSearch) {
+
+		
+		this.setState({
+			inputSearch: inputSearch,
+			dataSearch: response,
+			indexSelect: 0,
+			isLoading: true
+		})
 	}
 
 	// Handle when user change input search
 	_onChangeSearch(evt) {
 
 		const state = this.state,
-					props = this.props;
+			props = this.props;
 
 		let inputSearch = evt.target.value,
-		keySearch = props.keySearch,
-		dataSearch = [];
+			dataSearch;
 
-  	// Check data and input not null
-  	if(inputSearch !== '' && keySearch !== undefined) {
+		// Call function fetching and handling data from an Back End
+		if(props.callBackBackEnd !== undefined && props.objectRespone !== undefined && inputSearch !== '') {
 
-  		props.data.map((item, index) => {
+			props.callBackBackEnd(inputSearch).then((response) => {
+
+				if (response.data[props.objectRespone] !== undefined) {
+					this._setStateSearch(response.data[props.objectRespone], inputSearch)
+				}
+			})
+
+		// Handle search from data user
+		} else if (props.data !== undefined && props.keySearch !== undefined && inputSearch !== '') {
+
+			dataSearch = [];
+
+			props.data.map((item, index) => {
 
 				// Create regular expression for input search
 				let inputSearchRegExp = new RegExp(inputSearch, 'gi');
 
-				// Test input search with item in data, push the items true to a new array
-				if(item[keySearch]) {
-					return inputSearchRegExp.test(item[keySearch]) && index < 5 ?  dataSearch.push(item[keySearch]) : '';
-				}
-			}) 
-  	}
+				let itemSearch = item[props.keySearch]
 
-		// set state for input search, data search, loading
-		this.setState({
-			inputSearch: inputSearch ? inputSearch : '',
-			dataSearch: dataSearch,
-			indexSelect: 0,
-			isLoading: true
-		})
+				// Test input search with item in data, push the items true to a new array
+				if(itemSearch) {
+					return inputSearchRegExp.test(itemSearch) && index < 5 ?  dataSearch.push(itemSearch) : '';
+				}
+			})
+
+			// set state for input search, data search, loading
+			this._setStateSearch(dataSearch, inputSearch)
+
+		} else {
+			this.setState({
+				inputSearch: inputSearch
+			})
+		}
 
 		// set time out for loading when user change input search
 		if (!state.isLoading) {
@@ -155,7 +183,7 @@ class Search extends React.Component {
   				</ul>
   				)
   			// render the value search when input search not null
-  		} else if(!state.isLoading && state.dataSearch.length > 0 && state.inputSearch !== null) {
+  		} else if(!state.isLoading && state.dataSearch.length > 0 && state.inputSearch !== '') {
 
   			return (
   				<ul>
@@ -184,25 +212,19 @@ class Search extends React.Component {
 
   	return (
   		<div className='wrapper-search'>
-  		<div className={'wrapper-search-input'} >
-  		<input onChange={this._onChangeSearch}
-	  		onKeyDown={this._onKeyDownSelect}
-	  		value={this.state.inputSearch}
-	  		className={'search-default'}
-	  		type='type'
-	  		placeholder='input search'/>
-  		{ clearReander() }
-  		</div>
-  		{ renderDataSearch() }
+	  		<div className={'wrapper-search-input'} >
+		  		<input onChange={this._onChangeSearch}
+		  			onKeyDown={this._onKeyDownSelect}
+		  			value={this.state.inputSearch}
+		  			className={'search-default'}
+		  			type='type'
+		  			placeholder='input search'/>
+		  		{ clearReander() }
+		  	</div>
+	  		{ renderDataSearch() }
   		</div>
   		)
-  }
+	}
 }
 
-// Search.propTypes = {
-// 	data: React.PropTypes.array.isRequired,
-// 	keySearch: React.PropTypes.string.isRequired,
-// 	getValueSearch:  React.PropTypes.func.isRequired,
-// };
-
-module.exports = Search;
+  module.exports = Search;
