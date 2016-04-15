@@ -63,7 +63,6 @@ react-search-component is to provide a simple search
 ## Props:
 #### `data` (required)
 List of Items to filter through either an array of Object
-* data is a array
 #### `keySearch` (required)
 The search key to match when searhching
 #### `getValueSearch` (required)
