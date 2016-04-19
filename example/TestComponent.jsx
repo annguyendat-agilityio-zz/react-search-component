@@ -58,10 +58,16 @@ export default class TestComponent extends React.Component {
 		return (
 			<div>
 				// Search with data				
-				<Search keySearch={'name'} data={data} getValueSearch={this._handleSearch} />
+				<Search
+					keySearch={'name'}
+					data={data}
+					getValueSearch={this._handleSearch} />
 
 				// Search with call back end
-				<Search objectRespone={'users'} callBackBackEnd={this._callBack} getValueSearch={this._handleSearch} />
+				<Search
+					objectResponse={'users'}
+					callBackBackEnd={this._callBack}
+					getValueSearch={this._handleSearch} />
 			</div>
 		)
 	}

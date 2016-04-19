@@ -74,7 +74,7 @@ react-search-component is to provide a simple search
 						getValueSearch={this._handleSearch} />
 
 					// Search with call back end
-					<Search objectRespone={'users'}
+					<Search objectResponse={'users'}
 						callBackBackEnd={this._callBack}
 						getValueSearch={this._handleSearch} />
 				</div>

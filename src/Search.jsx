@@ -7,7 +7,7 @@ class Search extends React.Component {
 		return {
 			data: React.PropTypes.array,
 			keySearch: React.PropTypes.string,
-			objectRespone: React.PropTypes.string,
+			objectResponse: React.PropTypes.string,
 			callBackBackEnd: React.PropTypes.func,
 			getValueSearch:  React.PropTypes.func
 		}
@@ -51,12 +51,12 @@ class Search extends React.Component {
 			dataSearch;
 
 		// Call function fetching and handling data from an Back End
-		if(props.callBackBackEnd !== undefined && props.objectRespone !== undefined && inputSearch !== '') {
+		if(props.callBackBackEnd !== undefined && props.objectResponse !== undefined && inputSearch !== '') {
 
 			props.callBackBackEnd(inputSearch).then((response) => {
 
-				if (response.data[props.objectRespone] !== undefined) {
-					this._setStateSearch(response.data[props.objectRespone], inputSearch)
+				if (response.data[props.objectResponse] !== undefined) {
+					this._setStateSearch(response.data[props.objectResponse], inputSearch)
 				}
 			})
 
@@ -196,7 +196,12 @@ class Search extends React.Component {
 							// Bold value search
 							let itemTestBold = item.replace(inputSearchRegExp,"<strong>$&</strong>");
 
-							return <li onClick={this._onClickSelect.bind(this, index)} onMouseOver={this._onMouseOverSelect.bind(this, index)} className={state.indexSelect === index ? 'search-item search-item-active' : 'search-item'} key={index} dangerouslySetInnerHTML={{__html: itemTestBold}}></li>
+							return <li 
+										onClick={this._onClickSelect.bind(this, index)} 
+										onMouseOver={this._onMouseOverSelect.bind(this, index)} 
+										className={state.indexSelect === index ? 'search-item search-item-active' : 'search-item'}
+										key={index} dangerouslySetInnerHTML={{__html: itemTestBold}}>
+									</li>
 						})
   				}
   				</ul>
@@ -204,21 +209,26 @@ class Search extends React.Component {
   		}
   	}
 
+  	// Show button clear search
   	const clearReander = () => {
   		if(state.inputSearch !== '') {
-  			return (<button className='search-clear' onClick={this._onClear}></button>)
+  			return (<button
+  						className='search-clear'
+  						onClick={this._onClear} >
+  					</button>)
   		}
   	}
 
   	return (
   		<div className='wrapper-search'>
 	  		<div className={'wrapper-search-input'} >
-		  		<input onChange={this._onChangeSearch}
+		  		<input
+		  			onChange={this._onChangeSearch}
 		  			onKeyDown={this._onKeyDownSelect}
 		  			value={this.state.inputSearch}
 		  			className={'search-default'}
 		  			type='type'
-		  			placeholder='input search'/>
+		  			placeholder='input search' />
 		  		{ clearReander() }
 		  	</div>
 	  		{ renderDataSearch() }
