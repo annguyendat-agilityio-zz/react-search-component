@@ -1,4 +1,3 @@
-import './search.scss'
 import React from 'react'
 
 class Search extends React.Component {
@@ -56,6 +55,7 @@ class Search extends React.Component {
 			props.callBackBackEnd(inputSearch).then((response) => {
 
 				if (response.data[props.objectResponse] !== undefined) {
+
 					this._setStateSearch(response.data[props.objectResponse], inputSearch)
 				}
 			})
