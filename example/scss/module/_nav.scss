@@ -1,0 +1,21 @@
+.navigation-left {
+	float: left;
+	width: 220px;
+
+	.navigation-item {
+		font-size: 16px;
+		color: #aaa;
+		text-decoration: none;
+		text-transform: capitalize;
+		font-weight: bold;
+		padding: 10px;
+		display: block;
+	}
+
+	li:hover {
+		.navigation-item {
+			color: #333;
+			background-color: #ddd
+		}
+	}
+}

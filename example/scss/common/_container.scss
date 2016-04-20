@@ -1,0 +1,16 @@
+.container {
+	min-width: 960px;
+	margin: 0 auto;
+}
+
+.wrapper {
+	width: 960px;
+	padding: 10px;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+.warpper-children {
+	float: right;
+	min-width: 720px;
+}

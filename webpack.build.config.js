@@ -3,12 +3,13 @@ var webpack = require('webpack');
 
 module.exports = {
 	entry: [
-		'./src/Search.jsx' // Your appʼs entry point
+		'./src/Index.jsx' // Your appʼs entry point
 	],
+
 	output: {
 		path: './lib',
-		filename: 'search.js',
-		library: ['search'],
+		filename: 'component.js',
+		library: ['component'],
 		libraryTarget: 'umd'
 	},
 

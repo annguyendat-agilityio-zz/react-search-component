@@ -1,0 +1,54 @@
+.header {
+	padding: 10px;
+	background-color: #5b5e63;
+
+	h1 {
+		margin: 0;
+		color: #fff;
+		font-size: 60px;
+		text-align: center;
+		font-weight: bold;
+
+		-webkit-animation: change-color 1s ease-in-out infinite alternate;
+		-moz-animation: change-color 1s ease-in-out infinite alternate;
+		-o-animation: change-color 1s ease-in-out infinite alternate;
+		animation: change-color 1s ease-in-out infinite alternate;
+	}
+}
+
+@-webkit-keyframes change-color {
+	0% {
+		text-shadow: 0 0 5px cyan, 0 0 5px cyan, 0 0 15px cyan;
+	}
+	100% {
+		text-shadow: 0 0 5px cyan, 0 0 5px cyan, 0 0 30px cyan;
+	}
+}
+
+@-moz-keyframes change-color {
+	0% {
+		text-shadow: 0 0 5px cyan, 0 0 5px cyan, 0 0 15px cyan;
+	}
+	100% {
+		text-shadow: 0 0 5px cyan, 0 0 5px cyan, 0 0 30px cyan;
+	}
+}
+
+@-o-keyframes change-color {
+	0% {
+		text-shadow: 0 0 5px cyan, 0 0 5px cyan, 0 0 15px cyan;
+	}
+	100% {
+		text-shadow: 0 0 5px cyan, 0 0 5px cyan, 0 0 30px cyan;
+	}
+}
+
+
+@keyframes change-color {
+	0% {
+		text-shadow: 0 0 5px cyan, 0 0 5px cyan, 0 0 15px cyan;
+	}
+	100% {
+		text-shadow: 0 0 5px cyan, 0 0 5px cyan, 0 0 30px cyan;
+	}
+}
