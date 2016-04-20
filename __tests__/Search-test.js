@@ -14,7 +14,7 @@ import MockAdapter from 'axios-mock-adapter'
 
 let input,
 		component,
-		call
+		callb
 
 describe('Search component', () => {
 
@@ -61,9 +61,9 @@ describe('Search component', () => {
 		expect(listItem.length).toEqual(2);
 	});
 
-	it('search data from back end', () => {
+	pit('search data from back end', async () => {
 
-		call = function callBack(call) {
+		callb = function callBack() {
 			return new Promise((resolve, reject) => {
 				resolve(
 					{
@@ -73,22 +73,14 @@ describe('Search component', () => {
 					}
 				)
 			})
-		}		
+		}
 
 		component = TestUtils.renderIntoDocument(<Search
 			objectResponse={'users'}
-			callBackBackEnd={call} />);
+			callBackBackEnd={callb} />);
 
-		input = TestUtils.scryRenderedDOMComponentsWithTag(component, 'input');
+		const promise = await component.props.callBackBackEnd();
 
-		input[0].value = 'aaaaaaa'
-
-		TestUtils.Simulate.change(input[0]);
-
-		component.setState({
-			isLoading: false
-		})
-
-		expect(input[0]).toEqual('vvcv');
+		expect(promise.data.users.length).toEqual(2);
 	});
 });

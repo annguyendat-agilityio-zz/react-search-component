@@ -228,7 +228,8 @@ class Search extends React.Component {
 		  			value={this.state.inputSearch}
 		  			className={'search-default'}
 		  			type='type'
-		  			placeholder='input search' />
+		  			placeholder='input search'
+		  		/>
 		  		{ clearReander() }
 		  	</div>
 	  		{ renderDataSearch() }
