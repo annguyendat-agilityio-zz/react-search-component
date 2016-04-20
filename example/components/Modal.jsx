@@ -30,7 +30,7 @@ export default class ModalComponent extends React.Component {
 		const { modalShow } = this.state;
 
 		return (
-			<div className={"modal-component"}>
+			<div className="modal-component">
 				<h2>Modal</h2>
 				<button onClick={this._showModal}>show Modal</button>
 				<Modal closeModal={this._closeModal} showModal={modalShow}>

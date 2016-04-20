@@ -7,6 +7,7 @@ import App from './App';
 
 import SearchComponent from './components/Search';
 import ModalComponent from './components/Modal';
+import CarouselComponent from './components/Carousel';
 
 function main() {
 
@@ -19,6 +20,7 @@ function main() {
 	      <Route path="/" component={App}>
 		      <Route path="/search" component={SearchComponent}/>
 		      <Route path="/modal" component={ModalComponent}/>
+		      <Route path="/carousel" component={CarouselComponent}/>
 	      </Route>
 	    </Router>, app)
 }

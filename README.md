@@ -4,7 +4,7 @@ react-search-component is to provide a simple search
 
 ## Getting started
 ```
-	npm install --save-dev react-search-component
+	npm install --save-dev react-simple-component
 ```
 
 ## Usage:
