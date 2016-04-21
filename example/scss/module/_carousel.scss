@@ -3,4 +3,56 @@
 	position: relative;
 	width: 100%;
 	height: 100%;
+	text-align: center;
+
+	.slide {
+		display: inline-block;
+	}
+
+	.dot-slide {
+		width: 10px;
+		height: 10px;
+		margin: 0 10px;
+		border-radius: 50%;
+		display: inline-block;
+		background-color: #ddd;
+		cursor: pointer;
+	}
+
+	.dot-slide.active {
+		background-color: #333;
+	}
+
+	.slide-prev,
+	.slide-next {
+		width: 0;
+		height: 0;
+		position: absolute;
+		top: 50%;
+		z-index: 9999;
+		cursor: pointer;
+		@include transform(translate3d(0, -50%, 0));
+	}
+
+	.slide-prev {
+		left: 0;
+		border-right: 35px solid #ddd;
+		border-top: 35px solid transparent;
+		border-bottom: 35px solid transparent;
+
+		&:hover {
+			border-right-color: #333;
+		}
+	}
+
+	.slide-next {
+		right: 0;
+		border-left: 35px solid #ddd;
+		border-top: 35px solid transparent;
+		border-bottom: 35px solid transparent;
+
+		&:hover {
+			border-left-color: #333;
+		}
+	}
 }
