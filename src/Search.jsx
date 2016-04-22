@@ -200,7 +200,8 @@ class Search extends React.Component {
 										onClick={this._onClickSelect.bind(this, index)} 
 										onMouseOver={this._onMouseOverSelect.bind(this, index)} 
 										className={state.indexSelect === index ? 'search-item search-item-active' : 'search-item'}
-										key={index} dangerouslySetInnerHTML={{__html: itemTestBold}}>
+										key={index}
+										dangerouslySetInnerHTML={{__html: itemTestBold}}>
 									</li>
 						})
   				}
