@@ -16,17 +16,13 @@ export default class CarouselComponent extends React.Component {
 
 	render () {
 
-		// const { children } = this.prop
-
 		return (
 			<div>
 				<Carousel>
 					<img src="https://raw.githubusercontent.com/jerryshew/design/master/png/ambition-morty.png"/>
 					<img src="https://raw.githubusercontent.com/jerryshew/design/master/png/awkward-morty.png"/>
-					<img src="https://raw.githubusercontent.com/jerryshew/design/master/png/despise.png"/>
-					<img src="https://raw.githubusercontent.com/jerryshew/design/master/png/ambition-morty.png"/>
 					<img src="https://raw.githubusercontent.com/jerryshew/design/master/png/awkward-morty.png"/>
-					<img src="https://raw.githubusercontent.com/jerryshew/design/master/png/despise.png"/>
+					<img src="https://raw.githubusercontent.com/jerryshew/design/master/png/awkward-morty.png"/>
 				</Carousel>
 			</div>
 		)

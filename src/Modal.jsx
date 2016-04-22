@@ -25,7 +25,7 @@ class Modal extends React.Component {
 
 		this.props.closeModal();
 
-		thus.setState({
+		this.setState({
 			showModal: false
 		})
 	}

@@ -2,191 +2,277 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 class Carousel extends React.Component {
+	static get propTypes () {
+		return {
+			delayAutoPlay: React.PropTypes.number,
+			timeTransition: React.PropTypes.number,
+			arrowPrevNext: React.PropTypes.bool,
+			dotSlide: React.PropTypes.bool,
+			autoPlay: React.PropTypes.bool
+		}
+	}
+
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			widthBase: 0,
 			childrenCount: 0,
+			widthBase: 0,
 			index: 0,
-			delay: 3000,
-			transitionMs: 500,
+			autoPlay: this.props.autoPlay !== undefined ?
+						this.props.autoPlay :
+						true,
+			arrowPrevNext: this.props.arrowPrevNext !== undefined ?
+							this.props.arrowPrevNext :
+							true,
+			dotSlide: this.props.dotSlide !== undefined ?
+							this.props.dotSlide :
+							true,
+			delayAutoPlay: this.props.delayAutoPlay !== undefined ?
+					this.props.delayAutoPlay :
+					3000,
+			timeTransition: this.props.timeTransition !== undefined ?
+							this.props.timeTransition :
+							500,
 			transition: false
 		}
 
 		this._autoPlay = this._autoPlay.bind(this);
-		this._slidePrevNext = this._slidePrevNext.bind(this);
 		this._setInterval = this._setInterval.bind(this);
-		this._addTransition = this._addTransition.bind(this);
+		this._resetIndex = this._resetIndex.bind(this);
 	}
 
 	componentDidMount() {
 
+		// get element parent component
 		const base = ReactDOM.findDOMNode(this);
-		const { delay, index } = this.state;
+		const { index } = this.state;
 		const { children } = this.props;
-
-		let intervalId = this._setInterval()
 
 		this.setState({
-			childrenCount: children.length,
-			widthBase: base.offsetWidth,
-			intervalId: intervalId
-		})
 
-		
+			// Count children
+			childrenCount: children.length,
+
+			// set width for component
+			widthBase: base.offsetWidth,
+
+			// set Interval for auto play slide
+			intervalId: this._setInterval()
+		})		
 	}
 
+	componentWillUnmount() {
+
+		const { intervalId } = this.state
+
+		clearInterval(intervalId)
+	}
+
+	// setInterval for auto play slide
 	_setInterval() {
 
-		const { delay } = this.state
+		const { delayAutoPlay, autoPlay } = this.state
 
-		return setInterval(this._autoPlay, delay)
+		if(autoPlay) {
+			return setInterval(this._autoPlay, delayAutoPlay)
+		}
 	}
 
+	// Handle Auto play slide
 	_autoPlay() {
 
-		const { delay, index, childrenCount } = this.state;
+		const { index, childrenCount } = this.state;
 		const { children } = this.props;
 
-		if(index < childrenCount - 1) {
+		if(index < childrenCount) {
 			this.setState({
 				index: index + 1,
 				transition: true
 			})
-		} else {
-			this.setState({
-				index: 0,
-				transition: true
-			})
 		}
 
-		this._addTransition();
+		this._resetIndex(index + 1)
 	}
 
+	// Handle dot slide
 	_dotActive(i) {
 
-		const { delay, intervalId } = this.state
-
-		clearInterval(intervalId)
-
-		let interval = this._setInterval()
-
-		this.setState({
-			index: i,
-			transition: true,
-			intervalId: interval
-		})
-
-		this._addTransition();
-	}
-
-	_slidePrevNext(type) {
-
-		const { index, childrenCount } = this.state;
 		const { intervalId } = this.state
 
 		clearInterval(intervalId)
 
-		let interval = this._setInterval();
+		this.setState({
+			index: i,
+			transition: true,
+			intervalId: this._setInterval()
+		})
+
+		this._resetIndex(i);
+	}
+
+	// Handle Prev and Next arrow slide
+	_slidePrevNext(type) {
+
+		const { index, childrenCount, intervalId } = this.state;
+
+		clearInterval(intervalId)
 
 		switch(type) {
+			
 			case 'prev':
-				if(index === 0) {
-					this.setState({
-						index: childrenCount - 1,
-						transition: true,
-						intervalId: interval
-					})
-				} else {
+
+				if(index >= 0) {
 					this.setState({
 						index: index - 1,
 						transition: true,
-						intervalId: interval
+						intervalId: this._setInterval()
 					})
 				}
+
+				this._resetIndex(index - 1)
 				break;
+
 			case 'next':
-				if(index === childrenCount - 1) {
-					this.setState({
-						index: 0,
-						transition: true,
-						intervalId: interval
-					})
-				} else {
+
+				if(index < childrenCount) {
 					this.setState({
 						index: index + 1,
 						transition: true,
-						intervalId: interval
+						intervalId: this._setInterval()
 					})
 				}
+
+				this._resetIndex(index + 1);
 				break;
 		}
-
-		this._addTransition();
 	}
 
-	_addTransition() {
+	// Handle reset index to first and last slide, remove transition 
+	_resetIndex(index) {
 
-		const { transitionMs } = this.state
+		const { timeTransition, childrenCount } = this.state
 
 		setTimeout(() => {
+
+			if(index === -1) {
+				this.setState({
+					index: childrenCount - 1
+				})
+			}
+
+			if(index === childrenCount) {
+				this.setState({
+					index:  0
+				})
+			}
+
 			this.setState({
 				transition: false
 			})
-        }, transitionMs)
+        }, timeTransition)
 	}
 
 	render () {
 
 		const { children } = this.props
-		const { widthBase, childrenCount, index, transition, transitionMs} = this.state
+		const { 
+			widthBase,
+			childrenCount,
+			index,
+			transition,
+			timeTransition,
+			dotSlide,
+			arrowPrevNext } = this.state
 
-		let renderSlide = children.map((item, i) => {
-			return (
-				<div
-					key={i} 
-					className={`${i === index ? 'slide active' : 'slide'}`}
-					style={{width: widthBase}}
-				>
-					{item}
-				</div>
-			)
-		})
+		// show slide
+		let renderSlide = () => {
 
-		let renderDot = () => {
-			return (
-				<ul>
-				{
-					children.map((item, i) => {
-						return <li key={i} className={`dot-slide ${index === i ? 'active' : ''}`} onClick={this._dotActive.bind(this, i)}></li> 
-					})
+			let _children = [];
+
+			for(let i = -1, _len = childrenCount; i < _len + 1 ; i ++) {
+
+				let _index = i,
+					active = index === i ? `slide active` : `slide`;
+
+				if (_index === -1) {
+					_index = _len - 1;
 				}
-				</ul>
-			)
+
+				if (_index === _len) {
+					_index = 0;
+				}
+
+				_children.push(
+					<div
+						key={i} 
+						className={active}
+						style={{width: widthBase}}
+					>
+						{ children[_index] }
+					</div>
+				)
+			}
+
+			return _children
 		}
 
+		// show dot slide
+		let renderDot = () => {
+
+			if(dotSlide) {
+				return (
+					<ul>
+						{
+							children.map((item, i) => {
+
+								let dotStyle = index === i ? 'dot-slide active' : 'dot-slide'
+
+								return <li
+											key={i}
+											className={dotStyle}
+											onClick={this._dotActive.bind(this, i)}
+										></li> 
+							})
+						}
+					</ul>
+				)
+			}
+		}
+
+		// show prev and next arrow
 		let renderPrevNext = () => {
-			return (<div>
-					<a className="slide-prev" onClick={this._slidePrevNext.bind(this, 'prev')}></a>
-					<a className="slide-next" onClick={this._slidePrevNext.bind(this, 'next')}></a>
-				</div>
-			)
-		}
 
-		console.log(childrenCount - 1);
+			if(arrowPrevNext) {
+				return (
+					<div>
+						<a
+							className="slide-prev"
+							onClick={this._slidePrevNext.bind(this, 'prev')}
+						></a>
+						<a
+							className="slide-next"
+							onClick={this._slidePrevNext.bind(this, 'next')}
+						></a>
+					</div>
+				)
+			}
+		}
 
 		let widthTransform = {
-			width: widthBase * childrenCount,
-			transform: `translate(-${widthBase * index}px, 0)`,
-			transition: `${transition ? transitionMs : 0}ms`
+			width: widthBase * (childrenCount + 2),
+			transform: `translate(-${widthBase * (index + 1)}px, 0)`,
+			transition: `${transition ? timeTransition : 0}ms`
 		}
 
 		return (
 			<div className="carousel">
 				{ renderPrevNext() }
-				<div className="carousel-content" style={widthTransform}>
-					{ renderSlide }
+				<div
+					className="carousel-content"
+					style={widthTransform}
+				>
+					{ renderSlide() }
 				</div>
 				{ renderDot() }
 			</div>

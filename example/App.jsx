@@ -19,6 +19,9 @@ export default class App extends React.Component {
 							<li>
 								<Link className="navigation-item" to={'/modal'}>Modal</Link>
 							</li>
+							<li>
+								<Link className="navigation-item" to={'/carousel'}>Carousel</Link>
+							</li>
 						</ul>
 					</nav>
 					<div className="warpper-children">
