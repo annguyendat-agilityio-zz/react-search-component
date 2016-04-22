@@ -12,10 +12,12 @@
 		display: block;
 	}
 
-	li:hover {
-		.navigation-item {
-			color: #333;
-			background-color: #ddd
+	li {
+		&:hover{
+			.navigation-item {
+				color: #333;
+				background-color: #ddd
+			}
 		}
 	}
 }

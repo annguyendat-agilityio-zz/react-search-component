@@ -5,6 +5,12 @@
 	height: 100%;
 	text-align: center;
 
+	.carousel-content {
+		@include flex-display();
+		@include align-items(center);
+		@include justify-content(center);
+	}
+
 	.slide {
 		display: inline-block;
 	}
